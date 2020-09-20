@@ -1,0 +1,77 @@
+<h3 style="padding: 10px;">Tela de Produto</h3>
+
+<form style="padding: 5px" #formValidate="ngForm">
+
+  <div class="form-row">
+    <div class="form-group col-md-1">
+      <label for="id">ID</label>
+      <input type="text" [(ngModel)]="produto.id" class="form-control" id="id" readonly="true" name="id">
+    </div>
+  </div>
+
+  <div class="card text-left" style="padding: 10px">
+
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item active">Dados Produto</li>
+    </ol>
+
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="nomeProduto">Nome</label>
+        <span style="color: red; font-size: 18px;" *ngIf="nomeProdutoValidate.invalid"> *</span>
+        <input type="text" [(ngModel)]="produto.nomeProduto" #nomeProdutoValidate="ngModel" class="form-control" id="nomeProduto"
+              required="true" name="nomeProduto" autofocus>
+      </div>
+    </div>
+
+    <div class="form-row">
+
+      <div class="form-group col-md-3">
+        <label for="valorProduto">Valor</label>
+        <span style="color: red; font-size: 18px;" *ngIf="valorProdutoValidade.invalid"> *</span>
+        <input name="valorProduto" id="valorProduto" class="form-control" [(ngModel)]="produto.valorProduto" #valorProdutoValidade="ngModel" currencyMask [options]="{prefix : 'R$', thousands: '.', decimal : ','}" required="true">
+      </div>
+
+      <div class="form-group col-md-3">
+        <label for="estoqueProduto">Estoque</label>
+        <span style="color: red; font-size: 18px;" *ngIf="estoqueProdutoValidade.invalid"> *</span>
+        <input name="estoqueProduto" id="estoqueProduto" class="form-control" [(ngModel)]="produto.estoqueProduto" #estoqueProdutoValidade="ngModel" required="true">
+      </div>
+
+    </div>
+  </div>
+
+  <br/>
+  <div>
+    <div class="form-group col-md-4">
+      <label for="cidadeProduto">Cidade</label>
+      <span style="color: red; font-size: 18px;" *ngIf="cidadeProdutoValidade.invalid"> *</span>
+      <select [(ngModel)] = "produto.cidadeProduto.id" id="cidadeProduto" name="cidadeProduto" #cidadeProdutoValidade="ngModel"  class="form-control" required="true">
+        <option [ngValue]="p.id"  *ngFor="let p of cidadeProdutos">{{p.descricao}}</option>
+      </select>
+    </div>
+  </div>
+
+
+  <div class="form-row" style="margin-top: 20px;">
+    <div class="form-group col-md-6">
+      <button type="button" class="btn btn-primary" [routerLink]="['/produtoList']" routerLinkActive="router-link-active">
+        Voltar
+      </button>
+      <button type="button" class="btn btn-primary" (click)="novoProduto()" style="margin-left: 10px;">Novo</button>
+      <button type="button" class="btn btn-primary" [disabled]="formValidate.invalid" (click)="salvarProduto()"
+              style="margin-left: 10px;">Salvar
+      </button>
+    </div>
+  </div>
+
+</form>
+
+<footer class="text-right">
+  <label style="margin-bottom: -12px;"> Data Cadastro:</label>
+    <div class="breadcrumb-item">
+      <div class="text-right" style="margin-right: 12px;">  {{ produto.data_cadastroProduto }} </div> 
+    </div>
+</footer>
+
+<br/>
